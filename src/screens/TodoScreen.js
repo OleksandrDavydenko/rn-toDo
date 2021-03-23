@@ -1,9 +1,13 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Text, StyleSheet, View, Button } from 'react-native'
 import { THEME } from '../theme'
 import { AppCard } from '../components/ui/AppCard'
+import { useState } from 'react'
 
-export const TodoScreen = ({ goBack, todo }) => {
+export const TodoScreen = ({ goBack, todo, onRemove }) => {
+    
+    const [] = useState()
+
     return (
         <View>
             <AppCard style={styles.card}>
@@ -19,7 +23,7 @@ export const TodoScreen = ({ goBack, todo }) => {
                     <Button 
                         title='dellete' 
                         color={THEME.DANGER_COLOR} 
-                        onPress={() => console.log('To Remove')}/>
+                        onPress={() => onRemove(todo.id)}/>
                 </View>
             </View>
         </View>
