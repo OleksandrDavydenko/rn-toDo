@@ -6,11 +6,9 @@ import { TodoScreen } from './src/screens/TodoScreen'
 
 
 export default function App() {
-  const [todoId, setTodoId] = useState('2')
+  const [todoId, setTodoId] = useState(null)
   const [todos, setTodos] = useState([
-    {id: '1', title: 'Learn RN'},
-    {id: '2', title: 'Write APP'}
-
+  //  {id: '1', title: 'Learn RN'}
   ])
 
   const addTodo = title => {
