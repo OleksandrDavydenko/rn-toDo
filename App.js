@@ -1,15 +1,19 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, View, FlatList, Alert } from 'react-native'
+
 import { Navbar } from './src/components/Navbar'
 import { MainScreen } from './src/screens/MainScreen'
 import { TodoScreen } from './src/screens/TodoScreen'
 
 
 export default function App() {
+
+
   const [todoId, setTodoId] = useState(null)
   const [todos, setTodos] = useState([
   //  {id: '1', title: 'Learn RN'}
   ])
+
 
   const addTodo = title => {
     setTodos(prev => [
@@ -87,6 +91,7 @@ export default function App() {
     </View>
   )
 }
+
 
 const styles = StyleSheet.create({
   container: {
