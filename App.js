@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, FlatList, Alert } from 'react-native'
 import { Navbar } from './src/components/Navbar'
 import { MainScreen } from './src/screens/MainScreen'
 import { TodoScreen } from './src/screens/TodoScreen'
+import { THEME } from './src/theme'
 
 
 export default function App() {
@@ -95,7 +96,7 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 30,
+    paddingHorizontal: THEME.PADDING_GORIZONTAL,
     paddingVertical: 20
   }
 })
