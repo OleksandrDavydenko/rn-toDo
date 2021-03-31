@@ -1,7 +1,14 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, TextInput, Button, Alert, Keyboard } from 'react-native'
-import { THEME } from '../theme'
+import {
+  View,
+  StyleSheet,
+  TextInput,
+  Button,
+  Alert,
+  Keyboard
+} from 'react-native'
 import { AntDesign } from '@expo/vector-icons'
+import { THEME } from '../theme'
 
 export const AddTodo = ({ onSubmit }) => {
   const [value, setValue] = useState('')
@@ -29,7 +36,7 @@ export const AddTodo = ({ onSubmit }) => {
       <AntDesign.Button onPress={pressHandler} name='pluscircleo'>
         Добавить
       </AntDesign.Button>
-     {/*  <Button title='Добавить' onPress={pressHandler} /> */}
+      {/* <Button title='Добавить' onPress={pressHandler} /> */}
     </View>
   )
 }
