@@ -40,8 +40,15 @@ export const TodoState = ({ children }) => {
         {
         text: 'Удалить',
         style: 'destructive',
-        onPress: () => {
+        onPress: async () => {
           changeScreen(null)
+          await fetch(
+            `https://rn-todo-app-55230-default-rtdb.firebaseio.com/todos/${id}.json`,
+            {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            }
+          )
           dispatch({ type: REMOVE_TODO, id })
           }
         }
@@ -75,7 +82,7 @@ export const TodoState = ({ children }) => {
   const updateTodo = async (id, title) => {
     clearError()
     try {
-      await fetch(`https://rn-todo-app-55230-default-rtdb.firebaseio.com/todos${id}.json`, {
+      await fetch(`https://rn-todo-app-55230-default-rtdb.firebaseio.com/todos/${id}.json`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({title})
