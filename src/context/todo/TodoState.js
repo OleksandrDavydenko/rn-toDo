@@ -56,7 +56,7 @@ export const TodoState = ({ children }) => {
     showLoader()
     clearError()
     try {
-      const response = await fetch('https://rn-todo-app-55230-default-rtdb.firebaseio.com/todos.jsn', {
+      const response = await fetch('https://rn-todo-app-55230-default-rtdb.firebaseio.com/todos.json', {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' }
         })
@@ -72,7 +72,22 @@ export const TodoState = ({ children }) => {
     }
   }
 
-  const updateTodo = (id, title) => dispatch({ type: UPDATE_TODO, id, title })
+  const updateTodo = async (id, title) => {
+    clearError()
+    try {
+      await fetch(`https://rn-todo-app-55230-default-rtdb.firebaseio.com/todos${id}.json`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({title})
+      })
+    dispatch({ type: UPDATE_TODO, id, title })
+
+    } catch (e) {
+      showError('Что то пошло не так...')
+      console.log(e)
+    }
+   
+  }
   
   const showLoader = () => dispatch({ type: SHOW_LOADER })
 
