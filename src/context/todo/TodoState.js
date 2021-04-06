@@ -54,15 +54,22 @@ export const TodoState = ({ children }) => {
 
   const fetchTodos = async () => {
     showLoader()
-    const response = await fetch('https://rn-todo-app-55230-default-rtdb.firebaseio.com/todos.json', {
+    clearError()
+    try {
+      const response = await fetch('https://rn-todo-app-55230-default-rtdb.firebaseio.com/todos.jsn', {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' }
-    })
-    const data = await response.json()
-    console.log('FETCH DATA', data);
-    const todos = Object.keys(data).map(key => ({ ...data[key], id: key }))
-    dispatch({ type: FETCH_TODOS, todos })
-    hideLoader()
+        })
+      const data = await response.json()
+      console.log('FETCH DATA', data);
+      const todos = Object.keys(data).map(key => ({ ...data[key], id: key }))
+      dispatch({ type: FETCH_TODOS, todos }) 
+    } catch (e) {
+      showError('Что то пошло не так...')
+      console.log(e)
+    } finally {
+      hideLoader()
+    }
   }
 
   const updateTodo = (id, title) => dispatch({ type: UPDATE_TODO, id, title })
