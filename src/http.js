@@ -23,7 +23,8 @@ export class Http {
         try {
             return await request(url, 'DELETE')
         } catch (e) {
-            console.log(e);
+            console.log(e)
+            throw e
         }
 
     }

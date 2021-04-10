@@ -53,14 +53,12 @@ export const TodoState = ({ children }) => {
         style: 'destructive',
         onPress: async () => {
           changeScreen(null)
-          await fetch(
-            `https://rn-todo-app-55230-default-rtdb.firebaseio.com/todos/${id}.json`,
-            {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
-            }
-          )
-          dispatch({ type: REMOVE_TODO, id })
+          try {
+            await Http.delete(`https://rn-todo-app-55230-default-rtdb.firebaseio.com/todos/${id}.json`)
+            dispatch({ type: REMOVE_TODO, id })
+          } catch (e) {
+            showError('что-то пошло не так.')
+          }
           }
         }
        ],
@@ -74,12 +72,7 @@ export const TodoState = ({ children }) => {
     showLoader()
     clearError()
     try {
-      const response = await fetch('https://rn-todo-app-55230-default-rtdb.firebaseio.com/todos.json', {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' }
-        })
-      const data = await response.json()
-      console.log('FETCH DATA', data);
+      const data = await Http.get('https://rn-todo-app-55230-default-rtdb.firebaseio.com/todos.json')
       const todos = Object.keys(data).map(key => ({ ...data[key], id: key }))
       dispatch({ type: FETCH_TODOS, todos }) 
     } catch (e) {
@@ -93,12 +86,8 @@ export const TodoState = ({ children }) => {
   const updateTodo = async (id, title) => {
     clearError()
     try {
-      await fetch(`https://rn-todo-app-55230-default-rtdb.firebaseio.com/todos/${id}.json`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({title})
-      })
-    dispatch({ type: UPDATE_TODO, id, title })
+      await Http.patch(`https://rn-todo-app-55230-default-rtdb.firebaseio.com/todos/${id}.json`, {title})
+      dispatch({ type: UPDATE_TODO, id, title })
 
     } catch (e) {
       showError('Что то пошло не так...')
