@@ -6,7 +6,8 @@ export class Http {
         try {
             return await request(url, 'GET')
         } catch (e) {
-            console.log(e);
+            console.log(e)
+            throw e
         }
     }
 
@@ -44,7 +45,6 @@ async function request(url, method = 'GET', data) {
     }
     if (method === 'POST' || 'PATCH') {
         config.body = JSON.stringify(data)
-
     }
 
     const response = await fetch(url, config)

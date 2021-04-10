@@ -17,6 +17,7 @@ export const TodoState = ({ children }) => {
   const [state, dispatch] = useReducer(todoReducer, initialState)
 
   const addTodo = async title => {
+    clearError()
 /*     const response = await fetch('https://rn-todo-app-55230-default-rtdb.firebaseio.com/todos.json', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -25,10 +26,16 @@ export const TodoState = ({ children }) => {
     const data = await response.json()
     console.log('ID', data.name); */
 
-    const data = await Http.post('https://rn-todo-app-55230-default-rtdb.firebaseio.com/todos.json',
+    try {
+      const data = await Http.post('https://rn-todo-app-55230-default-rtdb.firebaseio.com/todos.json',
       { title })
 
-    dispatch({ type: ADD_TODO, title, id: data.name })
+      dispatch({ type: ADD_TODO, title, id: data.name })
+
+    } catch (e) {
+      showError('что-то пошло не так.')
+
+    }
   }
 
   const removeTodo = id => {
