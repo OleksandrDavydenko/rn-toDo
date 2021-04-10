@@ -17,13 +17,16 @@ export const TodoState = ({ children }) => {
   const [state, dispatch] = useReducer(todoReducer, initialState)
 
   const addTodo = async title => {
-    const response = await fetch('https://rn-todo-app-55230-default-rtdb.firebaseio.com/todos.json', {
+/*     const response = await fetch('https://rn-todo-app-55230-default-rtdb.firebaseio.com/todos.json', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ title })
     })
     const data = await response.json()
-    console.log('ID', data.name);
+    console.log('ID', data.name); */
+
+    const data = await Http.post('https://rn-todo-app-55230-default-rtdb.firebaseio.com/todos.json',
+      { title })
 
     dispatch({ type: ADD_TODO, title, id: data.name })
   }
